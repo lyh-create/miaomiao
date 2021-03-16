@@ -2,7 +2,7 @@
    <div id="content">
         <div class="cinema_body">
             <ul>
-                <li>
+                <!-- <li>
                     <div>
                         <span>大地影院(澳东世纪店)</span>
                         <span class="q"><span class="price">22.9</span> 元起</span>
@@ -15,75 +15,23 @@
                         <div>小吃</div>
                         <div>折扣卡</div>
                     </div>
-                </li>
-                <li>
+                </li> -->
+
+                <li v-for="item in cinemaList" :key="item.id">
                     <div>
-                        <span>大地影院(澳东世纪店)</span>
-                        <span class="q"><span class="price">22.9</span> 元起</span>
+                        <span>{{item.name}}</span>
+                        <span class="q">
+                            <span class="price">{{item.sellPrice}}</span> 
+                            元起
+                        </span>
                     </div>
                     <div class="address">
-                        <span>金州区大连经济技术开发区澳东世纪3层</span>
-                        <span>1763.5km</span>
+                        <span>{{item.address}}</span>
+                        <span>{{item.distance}}</span>
                     </div>
                     <div class="card">
-                        <div>小吃</div>
-                        <div>折扣卡</div>
-                    </div>
-                </li>
-                <li>
-                    <div>
-                        <span>大地影院(澳东世纪店)</span>
-                        <span class="q"><span class="price">22.9</span> 元起</span>
-                    </div>
-                    <div class="address">
-                        <span>金州区大连经济技术开发区澳东世纪3层</span>
-                        <span>1763.5km</span>
-                    </div>
-                    <div class="card">
-                        <div>小吃</div>
-                        <div>折扣卡</div>
-                    </div>
-                </li>
-                <li>
-                    <div>
-                        <span>大地影院(澳东世纪店)</span>
-                        <span class="q"><span class="price">22.9</span> 元起</span>
-                    </div>
-                    <div class="address">
-                        <span>金州区大连经济技术开发区澳东世纪3层</span>
-                        <span>1763.5km</span>
-                    </div>
-                    <div class="card">
-                        <div>小吃</div>
-                        <div>折扣卡</div>
-                    </div>
-                </li>
-                <li>
-                    <div>
-                        <span>大地影院(澳东世纪店)</span>
-                        <span class="q"><span class="price">22.9</span> 元起</span>
-                    </div>
-                    <div class="address">
-                        <span>金州区大连经济技术开发区澳东世纪3层</span>
-                        <span>1763.5km</span>
-                    </div>
-                    <div class="card">
-                        <div>小吃</div>
-                        <div>折扣卡</div>
-                    </div>
-                </li>
-                <li>
-                    <div>
-                        <span>大地影院(澳东世纪店)</span>
-                        <span class="q"><span class="price">22.9</span> 元起</span>
-                    </div>
-                    <div class="address">
-                        <span>金州区大连经济技术开发区澳东世纪3层</span>
-                        <span>1763.5km</span>
-                    </div>
-                    <div class="card">
-                        <div>小吃</div>
-                        <div>折扣卡</div>
+                        <!-- key为对象值 -->
+                       <div v-for="(num,key) in item.tag" :key="key">{{num}}</div>
                     </div>
                 </li>
             </ul>
@@ -94,6 +42,30 @@
 <script>
 export default {
     name:'Clist',
+    data(){
+        return{
+            cinemaList:[{
+                id:'17158',
+                name:'大地影院(澳东世纪店)',
+                sellPrice:'22.9',
+                address:'金州区大连经济技术开发区澳东世纪3层',
+                distance:'1763.5km',
+                tag:{
+                    key:'小吃',
+                    formatCard:'折扣卡',
+                }
+            },{
+                id:'17159',
+                name:'曲阳影都',
+                sellPrice:'23',
+                address:'虹口区曲阳路570号',
+                distance:'1063km',
+                tag:{
+                    formatCard:'折扣卡',
+                }
+            }]
+        }
+    }
 }
 </script>
 

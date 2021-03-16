@@ -4,13 +4,13 @@
 				<div class="search_input">
 					<div class="search_input_wrapper">
 						<i class="iconfont icon-sousuo"></i>
-						<input type="text">
+						<input type="text" v-model="message">
 					</div>					
 				</div>
 				<div class="search_result">
 					<h3>电影/电视剧/综艺</h3>
 					<ul>
-						<li>
+						<!-- <li>
 							<div class="img"><img src="/images/movie_1.jpg"></div>
 							<div class="info">
 								<p><span>无名之辈</span><span>8.5</span></p>
@@ -18,14 +18,14 @@
 								<p>剧情,喜剧,犯罪</p>
 								<p>2018-11-16</p>
 							</div>
-						</li>
-						<li>
-							<div class="img"><img src="/images/movie_1.jpg"></div>
+						</li> -->
+						<li v-for="item in moviesList" :key="item.id">
+							<div class="img"><img :src="item.img"></div>
 							<div class="info">
-								<p><span>无名之辈</span><span>8.5</span></p>
-								<p>A Cool Fish</p>
-								<p>剧情,喜剧,犯罪</p>
-								<p>2018-11-16</p>
+								<p><span>{{item.name}}</span><span>{{item.score}}</span></p>
+								<p>{{item.ename}}</p>
+								<p>{{item.cat}}</p>
+								<p>{{item.rtime}}</p>
 							</div>
 						</li>
 					</ul>
@@ -37,6 +37,32 @@
 <script>
 export default {
     name:'Search',
+	data(){
+		return{
+			message:'',
+			moviesList:[{
+				id:'1208282',
+				cat:'剧情,喜剧,犯罪',
+				dir:'饶晓志',
+				dur:'108',
+				ename:'A Cool Fish',
+				img:'/images/movie_1.jpg',
+				name:'无名之辈',
+				score:'9',
+				rtime:'2018-11-16'
+			},{
+				id:'1208283',
+				cat:'剧情,犯罪',
+				dir:'汤姆·哈迪',
+				dur:'108',
+				ename:'Venom',
+				img:'/images/movie_2.jpg',
+				name:'毒液',
+				score:'9',
+				rtime:'2018-11-30'
+			}]
+		}
+	},
 }
 </script>
 

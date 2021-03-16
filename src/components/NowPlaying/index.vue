@@ -2,13 +2,13 @@
   <div class="movie_body" ref="movie_body">
         
             <ul>
-                <li>
-                    <div class="pic_show"><img src="/images/movie_1.jpg"></div>
+                <li v-for="item in movieList" :key="item.index">
+                    <div class="pic_show"><img :src="item.img"></div>
                     <div class="info_list">
-                        <h2>无名之辈</h2>
-                        <p>观众评 <span class="grade">9.2</span></p>
-                        <p>主演: 陈建斌,任素汐,潘斌龙</p>
-                        <p>今天55家影院放映607场</p>
+                        <h2>{{item.name}}<img v-if="item.version" src="@/assets/maxs.png" alt=""></h2>
+                        <p>观众评 <span class="grade">{{item.star}}</span></p>
+                        <p>主演:{{item.star}}</p>
+                        <p>{{item.showInfo}}</p>
                     </div>
                     <div class="btn_mall">
                         购票
@@ -34,6 +34,39 @@
 <script>
 export default {
     name:'NowPlaying',
+    data(){
+        return{
+             movieList:[{
+                img:'/images/movie_1.jpg',
+                name:'无名之辈',
+                score:9.2,
+                star:'陈建斌,任素汐,潘斌龙',
+                showInfo:'今天55家影院放映607场',
+                version:'3ds max'
+            },{
+                img:'/images/movie_2.jpg',
+                name:'毒液',
+                score:9.0,
+                star:'汤姆·哈迪，米歇尔·威廉姆斯，里兹·阿迈耶',
+                showInfo:'2018-11-30上映',
+                version:''
+            },{
+                img:'/images/movie_1.jpg',
+                name:'无名之辈',
+                score:9.2,
+                star:'陈建斌,任素汐,潘斌龙',
+                showInfo:'今天55家影院放映607场',
+                version:'3ds max'
+            },{
+                img:'/images/movie_2.jpg',
+                name:'毒液',
+                score:9.0,
+                star:'汤姆·哈迪，米歇尔·威廉姆斯，里兹·阿迈耶',
+                showInfo:'2018-11-30上映',
+                version:''
+            }]
+        }
+    }
 }
 </script>
 
@@ -47,15 +80,8 @@ export default {
 .movie_body .info_list h2{ font-size: 17px; line-height: 24px; width:150px; overflow: hidden; white-space: nowrap; text-overflow:ellipsis;}
 .movie_body .info_list p{ font-size: 13px; color:#666; line-height: 22px; width:200px; overflow: hidden; white-space: nowrap; text-overflow:ellipsis;}
 .movie_body .info_list .grade{ font-weight: 700; color: #faaf00; font-size: 15px;}
-.movie_body .info_list img{ 
-    width: 64px;
-    height: 90px;
-    object-fit:cover;
-    position: absolute; right:10px; top: 5px;}
+.movie_body .info_list img{ width:50px; position: absolute; right:10px; top: 5px;}
 .movie_body .btn_mall , .movie_body .btn_pre{ width:47px; height:27px; line-height: 28px; text-align: center; background-color: #f03d37; color: #fff; border-radius: 4px; font-size: 12px; cursor: pointer;}
 .movie_body .btn_pre{ background-color: #3c9fe6;}
 .movie_body .pullDown{ margin:0; padding:0; border:none;}
-.pic_show img{
-    height: 100%;
-}
 </style>

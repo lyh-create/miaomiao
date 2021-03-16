@@ -4,28 +4,24 @@
             <div class="city_hot">
                 <h2>热门城市</h2>
                 <ul class="clearfix">
-                    <li>上海</li>
+                    <li v-for="item in hotList" :key="item.id">{{item.name}}</li>
                 </ul>
             </div>
-            <div class="city_sort">
-                <div>
-                    <h2>A</h2>
+            <div class="city_sort" ref="city_sort">
+                <div  v-for="item in cityList" :key="item.id">
+                    <h2>{{item.py.substring(0,1).toUpperCase()}}</h2>
                     <ul>
-                        <li>阿拉善盟</li>
-                        <li>鞍山</li>
-                        <li>安庆</li>
-                        <li>安阳</li>
+                        <li>{{item.name}}</li>
                     </ul>
                 </div>	
             </div>
+           
         </div>
         <div class="city_index">
             <ul>
-                <li>A</li>
-                <li>B</li>
-                <li>C</li>
-                <li>D</li>
-                <li>E</li>
+                <li v-for="(item,index) in jList" :key="item.index" @touchstart="handleToIndex(index)">
+                    {{item}}
+                </li>
             </ul>
         </div>
   </div>
@@ -34,6 +30,86 @@
 <script>
 export default {
     name:'City',
+    data(){
+       return{
+            cityList:[{
+            "id":1,
+            "name":"北京",
+            "isHot":1,
+            "py":"BeiJing"
+        },{
+            "id":2,
+            "name":"上海",
+            "isHot":1,
+            "py":"ShangHai"
+        },{
+            "id":3,
+            "name":"广州",
+            "isHot":0,
+            "py":"GuangZhou"
+        },{
+            "id":4,
+            "name":"深圳",
+            "isHot":0,
+            "py":"ShenZhen"
+        },{
+            "id":5,
+            "name":"邯郸",
+            "isHot":1,
+            "py":"HanDan"
+        },{
+            "id":6,
+            "name":"大梁",
+            "isHot":1,
+            "py":"DaLiang"
+        }],
+        jList:[],
+        hotList:[]
+       }
+    },
+    mounted(){
+        var {hotList,jList} = this.formatCityList()
+        this.hotList = hotList
+        this.jList = jList
+    },
+    methods:{
+        formatCityList(){
+            var hotList = [];
+            var fList = [];
+            var jList = [];
+            var cityList = this.$data.cityList
+            // 返回热门城市
+            for(var i = 0;i<cityList.length;i++){
+                if(cityList[i].isHot == 1){
+                    hotList.push( cityList[i] );
+                }
+            }
+            // console.log(hotList);
+            for(var j = 0;j < cityList.length;j++){
+                fList.push(cityList[j].py.substring(0,1).toUpperCase());
+            }
+            // console.log(fList.sort());
+            fList = fList.sort()
+            // console.log(fList);
+            // 对排序后的字母数组去重
+            for(var k in fList){
+                if(jList.indexOf(fList[k])===-1){
+                    jList.push(fList[k])
+                }
+            }
+            // 返回排序后的字母数组
+            // console.log(jList);
+            return{
+                hotList,
+                jList
+            }
+        },
+        handleToIndex(index){
+            var h2 = this.$refs.city_sort.getElementsByTagName('h2');
+            this.$refs.city_sort.parentNode.scrollTop = h2[index].offsetTop;
+            // this.$refs.city_List.toScrollTop(-h2[index].offsetTop);
+        }
+    },
 }
 </script>
 
