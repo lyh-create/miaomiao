@@ -1,9 +1,11 @@
 <template>
-  <div class="movie_body" ref="movie_body">
-        
-            <ul>
+    <div class="movie_body" ref="movie_body">
+        <!-- <Loading v-if="isLoading" /> -->
+        <Scroller  :handleToTouchEnd="handleToTouchEnd">
+             <ul>
+                <li class="pullDown">{{ pullDownMsg }}</li>
                 <li v-for="item in movieList" :key="item.index">
-                    <div class="pic_show"><img :src="item.img"></div>
+                    <div class="pic_show" @tap="handleToDetail"><img :src="item.img"></div>
                     <div class="info_list">
                         <h2>{{item.name}}<img v-if="item.version" src="@/assets/maxs.png" alt=""></h2>
                         <p>观众评 <span class="grade">{{item.star}}</span></p>
@@ -28,10 +30,12 @@
                     </div>
                 </li> -->
             </ul>
+        </Scroller>
     </div>
 </template>
 
 <script>
+
 export default {
     name:'NowPlaying',
     data(){
@@ -64,7 +68,42 @@ export default {
                 star:'汤姆·哈迪，米歇尔·威廉姆斯，里兹·阿迈耶',
                 showInfo:'2018-11-30上映',
                 version:''
-            }]
+            },{
+                img:'/images/movie_1.jpg',
+                name:'无名之辈',
+                score:9.2,
+                star:'陈建斌,任素汐,潘斌龙',
+                showInfo:'今天55家影院放映607场',
+                version:'3ds max'
+            },{
+                img:'/images/movie_2.jpg',
+                name:'毒液',
+                score:9.0,
+                star:'汤姆·哈迪，米歇尔·威廉姆斯，里兹·阿迈耶',
+                showInfo:'2018-11-30上映',
+                version:''
+            }],
+            pullDownMsg:'',
+            // isLoading:true
+        }
+    },
+    methods : {
+        handleToDetail(movieId){
+            //console.log(movieId);
+            this.$router.push('/movie/detail/1/' + movieId);
+        },
+        handleToScroll(pos){
+            if( pos.y > 30 ){
+                this.pullDownMsg = '正在更新中';
+            }
+        },
+        handleToTouchEnd(pos){
+            if( pos.y > 30 ){
+                this.pullDownMsg = '更新成功';
+                setTimeout(()=>{
+                    this.pullDownMsg = '';
+                },1000);
+            }
         }
     }
 }

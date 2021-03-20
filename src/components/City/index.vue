@@ -1,21 +1,24 @@
 <template>
   <div class="city_body">
         <div class="city_list">
-            <div class="city_hot">
-                <h2>热门城市</h2>
-                <ul class="clearfix">
-                    <li v-for="item in hotList" :key="item.id">{{item.name}}</li>
-                </ul>
-            </div>
-            <div class="city_sort" ref="city_sort">
-                <div  v-for="item in cityList" :key="item.id">
-                    <h2>{{item.py.substring(0,1).toUpperCase()}}</h2>
-                    <ul>
-                        <li>{{item.name}}</li>
-                    </ul>
-                </div>	
-            </div>
-           
+           <Scroller ref="city_List">
+                <div>
+                    <div class="city_hot">
+                        <h2>热门城市</h2>
+                        <ul class="clearfix">
+                            <li v-for="item in hotList" :key="item.id">{{item.name}}</li>
+                        </ul>
+                    </div>
+                    <div class="city_sort" ref="city_sort">
+                        <div  v-for="item in cityList" :key="item.id">
+                            <h2>{{item.index}}</h2>
+                            <ul>
+                                <li>{{item.name}}</li>
+                            </ul>
+                        </div>	
+                    </div>
+                </div>
+           </Scroller>
         </div>
         <div class="city_index">
             <ul>
@@ -36,41 +39,74 @@ export default {
             "id":1,
             "name":"北京",
             "isHot":1,
-            "py":"BeiJing"
+            "py":"BeiJing",
+            "index":"B"
         },{
             "id":2,
             "name":"上海",
             "isHot":1,
-            "py":"ShangHai"
+            "py":"ShangHai",
+            "index":"S"
         },{
             "id":3,
             "name":"广州",
             "isHot":0,
-            "py":"GuangZhou"
+            "py":"GuangZhou",
+            "index":"G"
         },{
             "id":4,
             "name":"深圳",
             "isHot":0,
-            "py":"ShenZhen"
+            "py":"ShenZhen",
+            "index":"S"
         },{
             "id":5,
             "name":"邯郸",
             "isHot":1,
-            "py":"HanDan"
+            "py":"HanDan",
+            "index":"H"
         },{
             "id":6,
             "name":"大梁",
             "isHot":1,
-            "py":"DaLiang"
+            "py":"DaLiang",
+            "index":"D"
+        },{
+            "id":7,
+            "name":"安徽",
+            "isHot":1,
+            "py":"AnHui",
+            "index":"A"
+        },{
+            "id":8,
+            "name":"福建",
+            "isHot":0,
+            "py":"FuJian",
+            "index":"F"
+        },{
+            "id":9,
+            "name":"广东",
+            "isHot":1,
+            "py":"GuangDong",
+            "index":"G"
         }],
         jList:[],
         hotList:[]
        }
     },
-    mounted(){
+    activated(){
         var {hotList,jList} = this.formatCityList()
+        
         this.hotList = hotList
         this.jList = jList
+        // if(cityList && hotList){
+        //     this.cityList = JSON.parse(cityList);
+        //     this.hotList = JSON.parse(hotList);
+            
+        // }else{
+        //     window.localStorage.setItem('cityList' , JSON.stringify(cityList));
+        //     window.localStorage.setItem('hotList' , JSON.stringify(hotList));
+        // }
     },
     methods:{
         formatCityList(){
@@ -88,9 +124,7 @@ export default {
             for(var j = 0;j < cityList.length;j++){
                 fList.push(cityList[j].py.substring(0,1).toUpperCase());
             }
-            // console.log(fList.sort());
             fList = fList.sort()
-            // console.log(fList);
             // 对排序后的字母数组去重
             for(var k in fList){
                 if(jList.indexOf(fList[k])===-1){
@@ -106,8 +140,8 @@ export default {
         },
         handleToIndex(index){
             var h2 = this.$refs.city_sort.getElementsByTagName('h2');
-            this.$refs.city_sort.parentNode.scrollTop = h2[index].offsetTop;
-            // this.$refs.city_List.toScrollTop(-h2[index].offsetTop);
+            // this.$refs.city_sort.parentNode.scrollTop = h2[index].offsetTop;
+            this.$refs.city_List.toScrollTop(-h2[index].offsetTop);
         }
     },
 }

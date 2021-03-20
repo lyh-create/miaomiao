@@ -5,8 +5,13 @@ import store from './store'
 
 // createApp(App).use(store).use(router).mount('#app')
 
-
 Vue.config.productionTip = false;
+
+import Scroller from '@/components/Scroller'
+Vue.component('Scroller', Scroller)
+
+import Loading from '@/components/Loading'
+Vue.component('Loading', Loading)
 
 new Vue({
     router,

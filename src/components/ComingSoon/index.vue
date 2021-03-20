@@ -1,6 +1,6 @@
 <template>
    <div class="movie_body">
-        
+        <Scroller>
             <ul>
                 <li v-for="item in comingList" :key="item.id">
                     <div class="pic_show"><img :src="item.img"></div>
@@ -28,7 +28,7 @@
                     </div>
                 </li> -->
             </ul>
-        
+        </Scroller>
    </div>
 </template>
 

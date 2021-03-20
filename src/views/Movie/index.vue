@@ -37,6 +37,7 @@
         <keep-alive>
             <router-view />
         </keep-alive>
+        
       </div>
       <TabBar></TabBar>
   </div>
@@ -46,12 +47,21 @@
 // 引入组件
 import Header from '@/components/Header';
 import TabBar from '@/components/TabBar';
+import { messageBox } from '@/components/JS'
 
 export default {
   name:'Movie',
   components:{
     Header,
-    TabBar
+    TabBar,   
+  },
+  mounted(){
+    messageBox({
+      title:'定位',
+      content:'北京',
+      cancel:'取消',
+      ok:'确认'
+    })
   }
 }
 </script>
